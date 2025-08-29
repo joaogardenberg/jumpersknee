@@ -5,16 +5,20 @@ import Phase2 from './Phase2'
 import Phase3 from './Phase3'
 import Information from './Information'
 
-const StyledApp = styled.div``
+const StyledApp = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
 
 export default function App() {
   return (
     <StyledApp>
       <Introduction />
       <Phase1 />
-      <Phase2 />
-      <Phase3 />
-      <Information />
+      {/* <Phase2 /> */}
+      {/* <Phase3 /> */}
+      {/* <Information /> */}
     </StyledApp>
   )
 }

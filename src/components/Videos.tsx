@@ -11,7 +11,9 @@ interface VideosProps {
   videos?: Video[]
 }
 
-const StyledVideos = styled.div``
+const StyledVideos = styled.div`
+  height: 100vh;
+`
 
 export default function Videos({ videos }: VideosProps) {
   if (!videos) return null

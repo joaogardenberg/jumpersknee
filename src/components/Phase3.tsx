@@ -36,7 +36,7 @@ export default function Phase1() {
   return (
     <StyledPhase>
       <h2>Phase 3 of recovery</h2>
-      <h3>In this phase the goal is to build up to sports activities.</h3>
+      <h4>In this phase the goal is to build up to sports activities.</h4>
       <Videos videos={videos} />
     </StyledPhase>
   )

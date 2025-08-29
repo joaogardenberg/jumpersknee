@@ -34,13 +34,15 @@ export default function Phase1() {
   ]
 
   return (
-    <StyledPhase>
-      <h2>Phase 1 of recovery</h2>
-      <h3>
-        In this phase the goal is to start exercises for the patellar tendon
-        within the limits of pain.
-      </h3>
+    <>
+      <StyledPhase>
+        <h2>Phase 1 of recovery</h2>
+        <h4>
+          In this phase the goal is to start exercises for the patellar tendon
+          within the limits of pain.
+        </h4>
+      </StyledPhase>
       <Videos videos={videos} />
-    </StyledPhase>
+    </>
   )
 }
