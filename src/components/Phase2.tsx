@@ -41,14 +41,16 @@ export default function Phase1() {
   ]
 
   return (
-    <StyledPhase>
-      <h2>Phase 2 of recovery</h2>
-      <h4>
-        In this phase, the goal is to strengthen the tendons and muscles around
-        the knee through exercises. It's important to gradually increase the
-        load.
-      </h4>
+    <>
+      <StyledPhase>
+        <h2>Phase 2 of recovery</h2>
+        <h4>
+          In this phase, the goal is to strengthen the tendons and muscles
+          around the knee through exercises. It's important to gradually
+          increase the load.
+        </h4>
+      </StyledPhase>
       <Videos videos={videos} />
-    </StyledPhase>
+    </>
   )
 }

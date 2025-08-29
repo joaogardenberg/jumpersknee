@@ -16,9 +16,9 @@ export default function App() {
     <StyledApp>
       <Introduction />
       <Phase1 />
-      {/* <Phase2 /> */}
-      {/* <Phase3 /> */}
-      {/* <Information /> */}
+      <Phase2 />
+      <Phase3 />
+      <Information />
     </StyledApp>
   )
 }
