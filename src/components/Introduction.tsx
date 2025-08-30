@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledIntroduction = styled.div`
-  background-color: red;
+  background-color: green;
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -37,10 +37,11 @@ export default function Introduction() {
     <StyledIntroduction>
       <h1>Jumper's knee</h1>
       <p>
-        <strong>Jumper's knee</strong>, also known as patellar tendinopathy or patellar tendinitis,
-        is an overuse injury of the patellar tendon that is common in runners and other athletes.
-        Relatively sufficient rest, but especially a gradual increase in training, is essential to
-        alleviate the symptoms.
+        <strong>Jumper's knee</strong>, also known as patellar tendinopathy or
+        patellar tendinitis, is an overuse injury of the patellar tendon that is
+        common in runners and other athletes. Relatively sufficient rest, but
+        especially a gradual increase in training, is essential to alleviate the
+        symptoms.
       </p>
       <div className="img-container">
         <img alt="" src="/jumpersknee.jpg" />
