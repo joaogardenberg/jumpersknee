@@ -22,13 +22,6 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Build project
         run: npm run build
-      # - name: Setup pages
-      #   uses: actions/configure-pages@v5
-      # - name: Build
-      #   uses: actions/jekyll-build-pages@v1
-      #   with:
-      #     source: ./
-      #     destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
