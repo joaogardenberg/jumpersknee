@@ -48,13 +48,13 @@ const StyledExercises = styled.section`
 
       .info {
         align-items: flex-start;
-        background-color: #222222dd;
+        background-color: #222222bb;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         height: 100%;
         opacity: 0;
-        padding: 2.5rem 0.5rem 0.5rem;
+        padding: 100% 0.5rem 0.5rem;
         pointer-events: none;
         position: absolute;
         transition: all 300ms ease-in-out;
@@ -70,6 +70,7 @@ const StyledExercises = styled.section`
 
       &:hover .info {
         opacity: 1;
+        padding-top: 2.5rem;
       }
     }
   }
