@@ -81,9 +81,9 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
 
     window.addEventListener('wheel', onWheel, { passive: false })
     window.addEventListener('keydown', onKeyDown, false)
-    // window.addEventListener('touchmove', (e) => e.preventDefault(), {
-    //   passive: false,
-    // })
+    window.addEventListener('touchmove', (e) => e.preventDefault(), {
+      passive: false,
+    })
 
     return () => {
       window.removeEventListener('wheel', onWheel)
