@@ -15,7 +15,7 @@ const StyledSectionScroll = styled.main`
 `
 
 export default function useSectionScroll({ children }: PropsWithChildren) {
-  const ref = useRef<HTMLElement>(null)
+  const myRef = useRef<HTMLElement>(null)
   const [section, setSection] = useState(0)
   const [update, setUpdate] = useState(false)
 
@@ -30,29 +30,28 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
   const nextSection = useMemo(
     () => () => {
       const sections = Math.ceil(
-        (ref.current as HTMLElement).scrollHeight /
-          (ref.current as HTMLElement).clientHeight,
+        (myRef.current as HTMLElement).scrollHeight /
+          (myRef.current as HTMLElement).clientHeight,
       )
 
       setSection((prev) => Math.min(sections, prev + 1))
       setUpdate((prev) => !prev)
     },
-    [ref, setSection, setUpdate],
+    [myRef, setSection, setUpdate],
   )
 
-  const handlers = useSwipeable({
-    onSwipedUp: () => {
-      nextSection()
-      console.log('Swiped up')
-    },
-    onSwipedDown: () => {
-      prevSection()
-      console.log('Swiped down')
-    },
+  const { ref, onMouseDown } = useSwipeable({
+    onSwipedUp: () => nextSection(),
+    onSwipedDown: () => prevSection(),
     preventScrollOnSwipe: true,
     touchEventOptions: { passive: false },
     trackMouse: true,
   })
+
+  const mergedRefs = (element: HTMLElement | null) => {
+    myRef.current = element
+    ref(element)
+  }
 
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
@@ -81,26 +80,22 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
 
     window.addEventListener('wheel', onWheel, { passive: false })
     window.addEventListener('keydown', onKeyDown, false)
-    window.addEventListener('touchmove', (e) => e.preventDefault(), {
-      passive: false,
-    })
 
     return () => {
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('keydown', onKeyDown)
-      // window.removeEventListener('touchmove', console.log)
     }
   }, [prevSection, nextSection])
 
   useEffect(() => {
-    ref.current?.scrollTo({
-      top: section * ref.current.clientHeight,
+    myRef.current?.scrollTo({
+      top: section * myRef.current.clientHeight,
       behavior: 'smooth',
     })
-  }, [ref, section, update])
+  }, [myRef, section, update])
 
   return (
-    <StyledSectionScroll {...handlers} ref={ref}>
+    <StyledSectionScroll onMouseDown={onMouseDown} ref={mergedRefs}>
       {children}
     </StyledSectionScroll>
   )
