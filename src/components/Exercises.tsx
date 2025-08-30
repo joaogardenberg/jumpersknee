@@ -12,7 +12,7 @@ interface ExercisesProps {
 }
 
 const StyledExercises = styled.section`
-  height: 100vh;
+  height: 100dvh;
 
   .exercise-list {
     display: flex;

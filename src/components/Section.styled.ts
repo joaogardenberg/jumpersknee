@@ -4,7 +4,7 @@ export default styled.section`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 100vh;
+  height: 100dvh;
   padding: 1rem;
 
   h1,

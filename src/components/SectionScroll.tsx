@@ -9,9 +9,9 @@ import { useSwipeable } from 'react-swipeable'
 import styled from 'styled-components'
 
 const StyledSectionScroll = styled.main`
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
-  width: 100vw;
+  width: 100dvw;
 `
 
 export default function useSectionScroll({ children }: PropsWithChildren) {
