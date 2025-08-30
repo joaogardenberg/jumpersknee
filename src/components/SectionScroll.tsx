@@ -93,12 +93,16 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
       }
     }
 
+    const onResize = () => setUpdate((prev) => !prev)
+
     window.addEventListener('wheel', onWheel, { passive: false })
     window.addEventListener('keydown', onKeyDown, false)
+    window.addEventListener('resize', onResize)
 
     return () => {
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('resize', onResize)
     }
   }, [prevSection, nextSection])
 

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const StyledIntroduction = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1rem;
   height: 100vh;
   padding: 1rem;
 
@@ -43,7 +43,7 @@ export default function Introduction() {
         symptoms.
       </p>
       <div className="img-container">
-        <img alt="" draggable={false} src="/jumpersknee.jpg" />
+        <img alt="" draggable={false} src="/images/jumpers_knee.jpg" />
       </div>
     </StyledIntroduction>
   )
