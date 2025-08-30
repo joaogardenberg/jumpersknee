@@ -1,35 +1,16 @@
-import { useEffect, useRef, useState, type PropsWithChildren } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PropsWithChildren,
+} from 'react'
 import { useSwipeable } from 'react-swipeable'
 import styled from 'styled-components'
 
-const KEYS = [37, 38, 39, 40]
-
-const preventDefault = (e: Event) => e.preventDefault()
-
-const preventDefaultForScrollKeys = (e: KeyboardEvent) => {
-  if (KEYS.indexOf(e.keyCode)) {
-    preventDefault(e)
-    return false
-  }
-}
-
-let supportsPassive = false
-
-try {
-  window.addEventListener(
-    'test',
-    () => {},
-    Object.defineProperty({}, 'passive', { get: () => (supportsPassive = true) })
-  )
-} catch (e) {}
-
-const wheelOpt = supportsPassive ? { passive: false } : false
-const wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel'
-
 const StyledSectionScroll = styled.main`
   height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: auto;
   width: 100vw;
 `
 
@@ -38,50 +19,89 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
   const [section, setSection] = useState(0)
   const [update, setUpdate] = useState(false)
 
+  const prevSection = useMemo(
+    () => () => {
+      setSection((prev) => Math.max(0, prev - 1))
+      setUpdate((prev) => !prev)
+    },
+    [setSection, setUpdate],
+  )
+
+  const nextSection = useMemo(
+    () => () => {
+      const sections = Math.ceil(
+        (ref.current as HTMLElement).scrollHeight /
+          (ref.current as HTMLElement).clientHeight,
+      )
+
+      setSection((prev) => Math.min(sections, prev + 1))
+      setUpdate((prev) => !prev)
+    },
+    [ref, setSection, setUpdate],
+  )
+
   const handlers = useSwipeable({
+    onSwipedUp: () => {
+      nextSection()
+      console.log('Swiped up')
+    },
+    onSwipedDown: () => {
+      prevSection()
+      console.log('Swiped down')
+    },
     preventScrollOnSwipe: true,
-    trackMouse: true,
     touchEventOptions: { passive: false },
-    onSwiped: console.log,
+    trackMouse: true,
   })
 
-  // useEffect(() => {
-  //   window.addEventListener('DOMMouseScroll', preventDefault, false)
-  //   window.addEventListener(wheelEvent, preventDefault, wheelOpt)
-  //   window.addEventListener('touchmove', preventDefault, wheelOpt)
-  //   window.addEventListener('keydown', preventDefaultForScrollKeys, false)
-
-  //   return () => {
-  //     window.removeEventListener('DOMMouseScroll', preventDefault, false)
-  //     window.removeEventListener(wheelEvent, preventDefault)
-  //     window.removeEventListener('touchmove', preventDefault)
-  //     window.removeEventListener('keydown', preventDefaultForScrollKeys, false)
-  //   }
-  // }, [])
-
   useEffect(() => {
-    const onScrollEnd = ({ target }: Event) => {
-      const scrollY = (target as HTMLElement).scrollTop
-      const innerHeight = (target as HTMLElement).clientHeight
-      const currentSection = Math.floor(scrollY / innerHeight)
-      const currentScroll = scrollY % innerHeight
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
 
-      if (currentScroll > innerHeight / 2) {
-        setSection(currentSection + 1)
-        setUpdate((_update) => !_update)
+      if (e.deltaY < 0) {
+        prevSection()
       } else {
-        setSection(currentSection)
-        setUpdate((_update) => !_update)
+        nextSection()
       }
     }
 
-    ref.current?.addEventListener('scrollend', onScrollEnd)
-    return () => ref.current?.removeEventListener('scrollend', onScrollEnd)
-  }, [ref])
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault()
+
+        if (e.key === 'ArrowUp') {
+          prevSection()
+        } else if (e.key === 'ArrowDown') {
+          nextSection()
+        }
+
+        return false
+      }
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('keydown', onKeyDown, false)
+    // window.addEventListener('touchmove', (e) => e.preventDefault(), {
+    //   passive: false,
+    // })
+
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKeyDown)
+      // window.removeEventListener('touchmove', console.log)
+    }
+  }, [prevSection, nextSection])
 
   useEffect(() => {
-    ref.current?.scrollTo({ top: section * ref.current.clientHeight, behavior: 'smooth' })
+    ref.current?.scrollTo({
+      top: section * ref.current.clientHeight,
+      behavior: 'smooth',
+    })
   }, [ref, section, update])
 
-  return <StyledSectionScroll {...handlers}>{children}</StyledSectionScroll>
+  return (
+    <StyledSectionScroll {...handlers} ref={ref}>
+      {children}
+    </StyledSectionScroll>
+  )
 }
