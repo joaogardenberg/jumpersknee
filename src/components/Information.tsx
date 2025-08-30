@@ -8,11 +8,15 @@ export default function Information() {
         <p>
           Jumper's knee, also known as jumper's knee or patellar tendinopathy,
           is an overuse injury of the patellar tendon that is common in athletes
-          who experience peak loads, such as soccer players, handball players,
-          runners, hockey players, and others. The quadriceps muscle originates
-          in the pelvis and runs downwards towards the kneecap. The quadriceps
-          tendon attaches just below the kneecap (tibial tuberosity).
+          who experience peak loads, such as soccer players, volleyball players,
+          handball players, runners, hockey players, and others. The quadriceps
+          muscle originates in the pelvis and runs downwards towards the
+          kneecap. The quadriceps tendon attaches just below the kneecap (tibial
+          tuberosity).
         </p>
+        <div className="img-container">
+          <img alt="" draggable={false} src="/images/jumpers_knee.jpg" />
+        </div>
       </Section>
       <Section>
         <h3>The cause of jumper's knee</h3>
@@ -28,6 +32,9 @@ export default function Information() {
           kneeling, jumping, and landing. These can cause the patellar tendon to
           thicken and deteriorate (tendinopathy).
         </p>
+        <div className="img-container">
+          <img alt="" draggable={false} src="/images/chair_stand_up_pain.jpg" />
+        </div>
       </Section>
       <Section>
         <h3>The symptoms of a jumper's knee</h3>
@@ -39,6 +46,13 @@ export default function Information() {
           Athletes who regularly jump and land can experience significant
           discomfort and discomfort from this.
         </p>
+        <div className="img-container">
+          <img
+            alt=""
+            draggable={false}
+            src="/images/volleyball_jump_pain.jpg"
+          />
+        </div>
       </Section>
       <Section>
         <h3>The treatment of a jumper's knee</h3>
@@ -52,15 +66,16 @@ export default function Information() {
           The recovery period generally ranges from 6 weeks to 12 months,
           depending on the severity.
         </p>
+        <div className="img-container">
+          <img alt="" draggable={false} src="/images/resting_hopeful.jpg" />
+        </div>
       </Section>
       <Section>
-        <h3>Synonym</h3>
+        <h3>Synonyms</h3>
         <p>
-          Jumper's knee, jumper's knee, patellar tendinopathy, knee tendon pain,
-          pain under the kneecap
+          Jumper's knee, patellar tendinopathy, patellar tendinitis, knee tendon
+          pain, pain under the kneecap
         </p>
-      </Section>
-      <Section>
         <h3>Advice</h3>
         <p>
           Above are some exercises you can use for this problem. If you have any
@@ -68,6 +83,9 @@ export default function Information() {
           unsure if it's right for you, always consult a qualified
           physiotherapist!
         </p>
+        <div className="img-container">
+          <img alt="" draggable={false} src="/images/physiotherapist.jpg" />
+        </div>
       </Section>
     </>
   )
