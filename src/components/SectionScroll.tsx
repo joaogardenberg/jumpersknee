@@ -15,7 +15,7 @@ const StyledSectionScroll = styled.main`
 `
 
 export default function useSectionScroll({ children }: PropsWithChildren) {
-  const myRef = useRef<HTMLElement>(null)
+  const scrollRef = useRef<HTMLElement>(null)
   const [section, setSection] = useState(0)
   const [update, setUpdate] = useState(false)
   const [cooldown, setCooldown] = useState(false)
@@ -24,11 +24,15 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
     () => () => {
       if (cooldown) return
 
-      setSection((prev) => Math.max(0, prev - 1))
-      setUpdate((prev) => !prev)
+      const newSection = section - 1
+
+      if (newSection < 0) return
+
+      setSection(newSection)
+      setUpdate(!update)
       setCooldown(true)
     },
-    [cooldown, setSection, setUpdate],
+    [cooldown, section, update],
   )
 
   const nextSection = useMemo(
@@ -36,15 +40,19 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
       if (cooldown) return
 
       const sections = Math.ceil(
-        (myRef.current as HTMLElement).scrollHeight /
-          (myRef.current as HTMLElement).clientHeight,
+        (scrollRef.current as HTMLElement).scrollHeight /
+          (scrollRef.current as HTMLElement).clientHeight,
       )
 
-      setSection((prev) => Math.min(sections, prev + 1))
-      setUpdate((prev) => !prev)
+      const newSection = section + 1
+
+      if (newSection >= sections) return
+
+      setSection(newSection)
+      setUpdate(!update)
       setCooldown(true)
     },
-    [cooldown, myRef, setSection, setUpdate],
+    [cooldown, scrollRef, section, update],
   )
 
   const { ref, onMouseDown } = useSwipeable({
@@ -56,7 +64,7 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
   })
 
   const mergedRefs = (element: HTMLElement | null) => {
-    myRef.current = element
+    scrollRef.current = element
     ref(element)
   }
 
@@ -95,11 +103,11 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
   }, [prevSection, nextSection])
 
   useEffect(() => {
-    myRef.current?.scrollTo({
-      top: section * myRef.current.clientHeight,
+    scrollRef.current?.scrollTo({
+      top: section * scrollRef.current.clientHeight,
       behavior: 'smooth',
     })
-  }, [myRef, section, update])
+  }, [scrollRef, section, update])
 
   useEffect(() => {
     if (!cooldown) return
