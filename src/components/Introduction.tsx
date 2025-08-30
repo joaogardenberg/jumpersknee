@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const StyledIntroduction = styled.div`
+  background-color: red;
   display: flex;
   flex-direction: column;
   gap: 1em;

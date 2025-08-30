@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export default styled.div`
+  background-color: blue;
   display: flex;
   flex-direction: column;
   gap: 1rem;

@@ -6,7 +6,9 @@ const styled = {
 
 export default styled.global`
   html,
-  body {
+  body,
+  ol,
+  ul {
     margin: 0;
   }
 
@@ -21,6 +23,8 @@ export default styled.global`
 
   * {
     box-sizing: border-box;
+    overscroll-behavior: none;
+    user-select: none;
   }
 
   h1,
