@@ -55,6 +55,33 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
     [cooldown, scrollRef, section, update],
   )
 
+  const firstSection = useMemo(
+    () => () => {
+      if (cooldown) return
+
+      setSection(0)
+      setUpdate(!update)
+      setCooldown(true)
+    },
+    [cooldown, update],
+  )
+
+  const lastSection = useMemo(
+    () => () => {
+      if (cooldown) return
+
+      const sections = Math.ceil(
+        (scrollRef.current as HTMLElement).scrollHeight /
+          (scrollRef.current as HTMLElement).clientHeight,
+      )
+
+      setSection(sections - 1)
+      setUpdate(!update)
+      setCooldown(true)
+    },
+    [cooldown, update],
+  )
+
   const { ref, onMouseDown } = useSwipeable({
     onSwipedUp: () => nextSection(),
     onSwipedDown: () => prevSection(),
@@ -80,13 +107,28 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
     }
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      if (
+        [
+          'ArrowUp',
+          'ArrowDown',
+          'ArrowLeft',
+          'ArrowRight',
+          'PageUp',
+          'PageDown',
+          'Home',
+          'End',
+        ].includes(e.key)
+      ) {
         e.preventDefault()
 
-        if (e.key === 'ArrowUp') {
+        if (['ArrowUp', 'PageUp'].includes(e.key)) {
           prevSection()
-        } else if (e.key === 'ArrowDown') {
+        } else if (['ArrowDown', 'PageDown'].includes(e.key)) {
           nextSection()
+        } else if (e.key === 'Home') {
+          firstSection()
+        } else if (e.key === 'End') {
+          lastSection()
         }
 
         return false
@@ -104,7 +146,7 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
       window.removeEventListener('keydown', onKeyDown)
       window.removeEventListener('resize', onResize)
     }
-  }, [prevSection, nextSection])
+  }, [prevSection, nextSection, firstSection, lastSection])
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
