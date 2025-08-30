@@ -18,17 +18,23 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
   const myRef = useRef<HTMLElement>(null)
   const [section, setSection] = useState(0)
   const [update, setUpdate] = useState(false)
+  const [cooldown, setCooldown] = useState(false)
 
   const prevSection = useMemo(
     () => () => {
+      if (cooldown) return
+
       setSection((prev) => Math.max(0, prev - 1))
       setUpdate((prev) => !prev)
+      setCooldown(true)
     },
-    [setSection, setUpdate],
+    [cooldown, setSection, setUpdate],
   )
 
   const nextSection = useMemo(
     () => () => {
+      if (cooldown) return
+
       const sections = Math.ceil(
         (myRef.current as HTMLElement).scrollHeight /
           (myRef.current as HTMLElement).clientHeight,
@@ -36,8 +42,9 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
 
       setSection((prev) => Math.min(sections, prev + 1))
       setUpdate((prev) => !prev)
+      setCooldown(true)
     },
-    [myRef, setSection, setUpdate],
+    [cooldown, myRef, setSection, setUpdate],
   )
 
   const { ref, onMouseDown } = useSwipeable({
@@ -93,6 +100,12 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
       behavior: 'smooth',
     })
   }, [myRef, section, update])
+
+  useEffect(() => {
+    if (!cooldown) return
+    const timeout = setTimeout(() => setCooldown(false), 500)
+    return () => clearTimeout(timeout)
+  }, [cooldown])
 
   return (
     <StyledSectionScroll onMouseDown={onMouseDown} ref={mergedRefs}>
