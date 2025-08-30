@@ -26,10 +26,46 @@ const StyledExercises = styled.section`
       flex: 1;
       height: 100%;
       justify-content: center;
+      position: relative;
 
       .exercise {
         max-height: 100%;
         max-width: 100%;
+      }
+
+      h4 {
+        left: 0.5rem;
+        position: absolute;
+        filter: drop-shadow(0 0 2px #222);
+        text-shadow: 0 0 2px #222;
+        top: 0;
+        z-index: 1;
+      }
+
+      .info {
+        align-items: flex-start;
+        background-color: #222222dd;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        height: 100%;
+        opacity: 0;
+        padding: 2rem 0.5rem 0.5rem;
+        pointer-events: none;
+        position: absolute;
+        transition: all 300ms ease-in-out;
+        width: 100%;
+
+        h5 {
+          background-color: #ffffddaa;
+          border-radius: 8px;
+          color: #222;
+          padding: 0.125em 0.25em;
+        }
+      }
+
+      &:hover .info {
+        opacity: 1;
       }
     }
   }
@@ -43,7 +79,12 @@ export default function Exercises({ exercises }: ExercisesProps) {
       <ol className="exercise-list">
         {exercises.map((exercise) => (
           <li className="exercise-item" key={exercise.title}>
+            <h4>{exercise.title}</h4>
             <img alt="" className="exercise" src={exercise.src} />
+            <div className="info">
+              <h5>{exercise.subtitle}</h5>
+              <p>{exercise.description}</p>
+            </div>
           </li>
         ))}
       </ol>
