@@ -12,7 +12,6 @@ interface VideosProps {
 }
 
 const StyledVideos = styled.div`
-  background-color: red;
   height: 100vh;
 `
 
