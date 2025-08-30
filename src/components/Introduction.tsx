@@ -43,7 +43,7 @@ export default function Introduction() {
         symptoms.
       </p>
       <div className="img-container">
-        <img alt="" src="/jumpersknee.jpg" />
+        <img alt="" draggable={false} src="/jumpersknee.jpg" />
       </div>
     </StyledIntroduction>
   )
