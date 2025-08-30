@@ -6,9 +6,7 @@ const styled = {
 
 export default styled.global`
   html,
-  body,
-  ol,
-  ul {
+  body {
     margin: 0;
   }
 
@@ -39,5 +37,12 @@ export default styled.global`
 
   h4 {
     font-weight: normal;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 `
