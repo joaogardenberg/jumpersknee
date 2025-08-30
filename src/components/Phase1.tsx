@@ -1,5 +1,5 @@
 import Videos, { type Video } from './Videos'
-import StyledPhase from './Phase.styled'
+import Section from './Section.styled'
 
 export default function Phase1() {
   const videos: Video[] = [
@@ -35,13 +35,16 @@ export default function Phase1() {
 
   return (
     <>
-      <StyledPhase>
+      <Section>
         <h2>Phase 1 of recovery</h2>
         <h4>
-          In this phase the goal is to start exercises for the patellar tendon within the limits of
-          pain.
+          In this phase the goal is to start exercises for the patellar tendon
+          within the limits of pain.
         </h4>
-      </StyledPhase>
+        <div className="img-container">
+          <img alt="" draggable={false} src="/images/phases/1/phase.jpg" />
+        </div>
+      </Section>
       <Videos videos={videos} />
     </>
   )

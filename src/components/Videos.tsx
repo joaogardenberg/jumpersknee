@@ -11,7 +11,7 @@ interface VideosProps {
   videos?: Video[]
 }
 
-const StyledVideos = styled.div`
+const StyledVideos = styled.section`
   height: 100vh;
 `
 

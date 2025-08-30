@@ -1,39 +1,8 @@
-import styled from 'styled-components'
-
-const StyledIntroduction = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 100vh;
-  padding: 1rem;
-
-  h1 {
-    text-align: center;
-  }
-
-  p {
-    text-align: justify;
-  }
-
-  .img-container {
-    align-items: center;
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-
-    img {
-      max-height: 100%;
-      max-width: 100%;
-      position: absolute;
-    }
-  }
-`
+import Section from './Section.styled'
 
 export default function Introduction() {
   return (
-    <StyledIntroduction>
+    <Section>
       <h1>Jumper's knee</h1>
       <p>
         <strong>Jumper's knee</strong>, also known as patellar tendinopathy or
@@ -45,6 +14,6 @@ export default function Introduction() {
       <div className="img-container">
         <img alt="" draggable={false} src="/images/jumpers_knee.jpg" />
       </div>
-    </StyledIntroduction>
+    </Section>
   )
 }

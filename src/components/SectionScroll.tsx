@@ -10,7 +10,7 @@ import styled from 'styled-components'
 
 const StyledSectionScroll = styled.main`
   height: 100vh;
-  overflow: auto;
+  overflow: hidden;
   width: 100vw;
 `
 
