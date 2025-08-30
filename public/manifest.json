@@ -1,23 +1,11 @@
 {
-  "short_name": "Jumper's knee",
-  "name": "Jumper's knee",
+  "short_name": "J-knee",
+  "name": "J-knee",
   "icons": [
     {
-      "purpose": "any",
-      "sizes": "48x48",
-      "src": "/favicon.ico",
-      "type": "image/x-icon"
-    },
-    {
-      "purpose": "any",
+      "purpose": "maskable",
       "sizes": "192x192",
       "src": "/android-chrome-192x192.png",
-      "type": "image/png"
-    },
-    {
-      "purpose": "any",
-      "sizes": "512x512",
-      "src": "/android-chrome-512x512.png",
       "type": "image/png"
     },
     {
@@ -29,6 +17,6 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#ffffdd",
+  "theme_color": "#222222",
   "background_color": "#222222"
 }
