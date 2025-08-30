@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import classNames from 'classnames'
 import styled from 'styled-components'
 
 export interface Exercise {
@@ -33,22 +35,19 @@ const StyledExercises = styled.section`
         max-width: 100%;
       }
 
-      h4,
-      p {
+      > h4 {
         filter: drop-shadow(0 0 2px #222);
-        text-shadow: 0 0 2px #222;
-      }
-
-      h4 {
         left: 0.5rem;
         position: absolute;
+        text-shadow: 0 0 2px #222;
         top: 0.5rem;
+        transition: all 300ms ease-in-out;
         z-index: 1;
       }
 
       .info {
         align-items: flex-start;
-        background-color: #222222bb;
+        background-color: #ffffddbb;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -60,33 +59,72 @@ const StyledExercises = styled.section`
         transition: all 300ms ease-in-out;
         width: 100%;
 
-        h5 {
-          background-color: #ffffddaa;
-          border-radius: 8px;
+        h4 {
           color: #222;
+        }
+
+        h5 {
+          background-color: #222222aa;
+          border-radius: 8px;
           padding: 0.125em 0.25em;
+        }
+
+        p {
+          color: #222;
         }
       }
 
-      &:hover .info {
-        opacity: 1;
-        padding-top: 2.5rem;
+      @media (hover: hover) {
+        &:hover {
+          > h4 {
+            opacity: 0;
+          }
+
+          .info {
+            opacity: 1;
+            padding-top: 0.5rem;
+          }
+        }
+      }
+
+      @media (hover: none) {
+        &.touch-active {
+          > h4 {
+            opacity: 0;
+          }
+
+          .info {
+            opacity: 1;
+            padding-top: 0.5rem;
+          }
+        }
       }
     }
   }
 `
 
 export default function Exercises({ exercises }: ExercisesProps) {
+  const [current, setCurrent] = useState<number>()
+
   if (!exercises) return null
 
   return (
     <StyledExercises>
       <ol className="exercise-list">
-        {exercises.map((exercise) => (
-          <li className="exercise-item" key={exercise.title}>
+        {exercises.map((exercise, index) => (
+          <li
+            className={classNames('exercise-item', {
+              'touch-active': current === index,
+            })}
+            key={exercise.title}
+            onTouchStart={() =>
+              current === index ? setCurrent(undefined) : setCurrent(index)
+            }
+          >
             <h4>{exercise.title}</h4>
             <img alt="" className="exercise" src={exercise.src} />
             <div className="info">
+              <h4>{exercise.title}</h4>
               <h5>{exercise.subtitle}</h5>
               <p>{exercise.description}</p>
             </div>
