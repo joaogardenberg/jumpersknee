@@ -33,12 +33,16 @@ const StyledExercises = styled.section`
         max-width: 100%;
       }
 
+      h4,
+      p {
+        filter: drop-shadow(0 0 2px #222);
+        text-shadow: 0 0 2px #222;
+      }
+
       h4 {
         left: 0.5rem;
         position: absolute;
-        filter: drop-shadow(0 0 2px #222);
-        text-shadow: 0 0 2px #222;
-        top: 0;
+        top: 0.5rem;
         z-index: 1;
       }
 
@@ -50,7 +54,7 @@ const StyledExercises = styled.section`
         gap: 0.5rem;
         height: 100%;
         opacity: 0;
-        padding: 2rem 0.5rem 0.5rem;
+        padding: 2.5rem 0.5rem 0.5rem;
         pointer-events: none;
         position: absolute;
         transition: all 300ms ease-in-out;
