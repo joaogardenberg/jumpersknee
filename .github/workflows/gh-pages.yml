@@ -14,12 +14,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Setup
-        uses: actions/configure-pages@v5
-      - name: Build
+      - name: Setup Node
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Build project
         run: npm run build
+      # - name: Setup pages
+      #   uses: actions/configure-pages@v5
       # - name: Build
       #   uses: actions/jekyll-build-pages@v1
       #   with:
