@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "*** Installing all packages ***"
+npm install --silent
+
+echo "*** Starting all services ***"
+npm run dev
