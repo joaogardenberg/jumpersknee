@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import styled from 'styled-components'
 
@@ -14,13 +14,17 @@ interface ExercisesProps {
 }
 
 const StyledExercises = styled.section`
+  align-items: center;
+  display: flex;
   height: 100dvh;
+  justify-content: center;
+  position: relative;
 
   .exercise-list {
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
-    width: 100%;
+    height: 100dvh;
+    width: 100dvw;
 
     .exercise-item {
       align-items: center;
@@ -53,7 +57,7 @@ const StyledExercises = styled.section`
         gap: 0.5rem;
         height: 100%;
         opacity: 0;
-        padding: 100% 0.5rem 0.5rem;
+        padding: 0.5rem;
         pointer-events: none;
         position: absolute;
         transition: all 300ms ease-in-out;
@@ -82,7 +86,6 @@ const StyledExercises = styled.section`
 
           .info {
             opacity: 1;
-            padding-top: 0.5rem;
           }
         }
       }
@@ -95,22 +98,39 @@ const StyledExercises = styled.section`
 
           .info {
             opacity: 1;
-            padding-top: 0.5rem;
           }
         }
       }
+    }
+
+    &.portrait {
+      height: 100dvw;
+      position: absolute;
+      rotate: 90deg;
+      width: 100dvh;
     }
   }
 `
 
 export default function Exercises({ exercises }: ExercisesProps) {
   const [current, setCurrent] = useState<number>()
+  const [portrait, setPortrait] = useState(false)
+
+  useEffect(() => {
+    const onResize = () => {
+      setPortrait(window.innerHeight > window.innerWidth)
+    }
+
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   if (!exercises) return null
 
   return (
     <StyledExercises>
-      <ol className="exercise-list">
+      <ol className={classNames('exercise-list', { portrait })}>
         {exercises.map((exercise, index) => (
           <li
             className={classNames('exercise-item', {
