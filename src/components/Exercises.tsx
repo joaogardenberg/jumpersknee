@@ -70,7 +70,7 @@ const StyledExercises = styled.section`
         h5 {
           background-color: #222222aa;
           border-radius: 8px;
-          padding: 0.125em 0.25em;
+          padding: 0.25rem 0.5rem;
         }
 
         p {
@@ -99,6 +99,21 @@ const StyledExercises = styled.section`
           .info {
             opacity: 1;
           }
+        }
+      }
+
+      @media (max-width: 1000px) {
+        h4 {
+          font-size: 0.75rem;
+        }
+
+        h5 {
+          font-size: 0.5rem;
+          padding: 0.125rem 0.25rem !important;
+        }
+
+        p {
+          font-size: 0.5rem;
         }
       }
     }
