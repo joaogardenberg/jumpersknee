@@ -38,7 +38,7 @@ export default styled.section`
 
       .info {
         align-items: flex-start;
-        background-color: #ffffddbb;
+        background-color: #ffffdd99;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
