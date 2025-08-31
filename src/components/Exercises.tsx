@@ -42,9 +42,12 @@ export default function Exercises({ exercises }: ExercisesProps) {
               current === index ? setCurrent(undefined) : setCurrent(index)
             }
           >
-            <h4>{exercise.title}</h4>
-            <img alt="" className="exercise" src={exercise.src} />
             <div className="info">
+              <h4>{exercise.title}</h4>
+              <h5>{exercise.subtitle}</h5>
+            </div>
+            <img alt="" className="exercise" src={exercise.src} />
+            <div className="hidden-info">
               <h4>{exercise.title}</h4>
               <h5>{exercise.subtitle}</h5>
               <p>{exercise.description}</p>

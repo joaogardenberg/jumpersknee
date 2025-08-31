@@ -26,28 +26,42 @@ export default styled.section`
         max-width: 100%;
       }
 
-      > h4 {
-        filter: drop-shadow(0 0 2px #222);
-        left: 0.5rem;
-        position: absolute;
-        text-shadow: 0 0 2px #222;
-        top: 0.5rem;
-        transition: all 300ms ease-in-out;
-        z-index: 1;
-      }
-
-      .info {
+      .info,
+      .hidden-info {
         align-items: flex-start;
-        background-color: #ffffdd99;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        height: 100%;
-        opacity: 0;
+        left: 0;
         padding: 0.5rem;
         pointer-events: none;
         position: absolute;
+        top: 0;
         transition: all 300ms ease-in-out;
+        z-index: 1;
+
+        h5 {
+          border-radius: 8px;
+          padding: 0.25rem 0.5rem;
+        }
+      }
+
+      .info {
+        h4 {
+          filter: drop-shadow(0 0 2px #222);
+          text-shadow: 0 0 2px #222;
+        }
+
+        h5 {
+          background-color: #ffffddaa;
+          color: #222;
+        }
+      }
+
+      .hidden-info {
+        background-color: #ffffdd99;
+        height: 100%;
+        opacity: 0;
         width: 100%;
 
         h4 {
@@ -56,8 +70,6 @@ export default styled.section`
 
         h5 {
           background-color: #222222aa;
-          border-radius: 8px;
-          padding: 0.25rem 0.5rem;
         }
 
         p {
@@ -67,11 +79,11 @@ export default styled.section`
 
       @media (hover: hover) {
         &:hover {
-          > h4 {
+          .info {
             opacity: 0;
           }
 
-          .info {
+          .hidden-info {
             opacity: 1;
           }
         }
@@ -79,11 +91,11 @@ export default styled.section`
 
       @media (hover: none) {
         &.touch-active {
-          > h4 {
+          .info {
             opacity: 0;
           }
 
-          .info {
+          .hidden-info {
             opacity: 1;
           }
         }
