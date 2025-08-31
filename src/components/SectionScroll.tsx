@@ -84,7 +84,9 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
 
   const { ref, onMouseDown } = useSwipeable({
     onSwipedUp: () => nextSection(),
+    onSwipedLeft: () => nextSection(),
     onSwipedDown: () => prevSection(),
+    onSwipedRight: () => prevSection(),
     preventScrollOnSwipe: true,
     touchEventOptions: { passive: false },
     trackMouse: true,
@@ -121,9 +123,9 @@ export default function useSectionScroll({ children }: PropsWithChildren) {
       ) {
         e.preventDefault()
 
-        if (['ArrowUp', 'PageUp'].includes(e.key)) {
+        if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) {
           prevSection()
-        } else if (['ArrowDown', 'PageDown'].includes(e.key)) {
+        } else if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key)) {
           nextSection()
         } else if (e.key === 'Home') {
           firstSection()
